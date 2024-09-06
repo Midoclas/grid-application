@@ -15,9 +15,12 @@ import fr.midoclas.grid.application.Point;
 public class MachineController {
 	
 	private List<MachineInterface> machines;
+	private InfiniteGrid grid;
     private Timer timer;
-	
-	public MachineController() {
+    private int offsetX = 0, offsetY = 0, tileSize = 0;
+
+	public MachineController(InfiniteGrid grid) {
+		this.grid = grid;
         machines = new ArrayList<>();
         timer = new Timer(16, new ActionListener() {
             @Override
@@ -28,13 +31,14 @@ public class MachineController {
         timer.start();
     }
 	
-	public void addMachine(MachineInterface machine, int x, int y) {
-        machines.add(new MachineInterface());
+	public void addMachine(MachineInterface machine) {
+        machines.add(machine);
     }
 
-    public void renderMachines(Graphics g, int tileSize) {
+    public void renderMachines(Graphics g) {
+    	
         for (MachineInterface machine : machines) {
-        	machine.render(g, machine.getX(), machine.getY(), tileSize);
+        	machine.render(g, this.offsetX, this.offsetY, this.tileSize);
         }
     }
 	
@@ -43,4 +47,28 @@ public class MachineController {
         	machine.updateAnimation();
         }
     }
+	
+	public int getOffsetX() {
+		return offsetX;
+	}
+
+	public void setOffsetX(int offsetX) {
+		this.offsetX = offsetX;
+	}
+
+	public int getOffsetY() {
+		return offsetY;
+	}
+
+	public void setOffsetY(int offsetY) {
+		this.offsetY = offsetY;
+	}
+
+	public int getTileSize() {
+		return tileSize;
+	}
+
+	public void setTileSize(int tileSize) {
+		this.tileSize = tileSize;
+	}
 }

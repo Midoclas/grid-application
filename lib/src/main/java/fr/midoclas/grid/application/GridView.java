@@ -18,11 +18,12 @@ public class GridView extends JPanel {
 	private final int tileSize = 50;
 	private Timer timer;
 	public java.awt.Point lastMousePosition = new java.awt.Point(0,0);
-	public MachineController conveyors;
+	public MachineController machineController;
 
 	public GridView(InfiniteGrid grid) {
 		GridListener listener = new GridListener(this);
-		conveyors = new MachineController(grid);
+		machineController = new MachineController(grid);
+		machineController.setTileSize(tileSize);
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
 		this.setBackground(Color.PINK);
@@ -44,6 +45,7 @@ public class GridView extends JPanel {
 
 		int startX = offsetX / tileSize;
 		int startY = offsetY / tileSize;
+		
 
 		for (int x = startX - tileSize; x < startX + horizontalTiles; x++) {
 			for (int y = startY - tileSize; y < startY + verticalTiles; y++) {
@@ -70,7 +72,7 @@ public class GridView extends JPanel {
 				g.drawString(x + "," + y, drawX, drawY + 10);
 			}
 		}
-//		grid.showTiles();
+		machineController.renderMachines(g);
 	}
 
 	@Override
@@ -82,6 +84,8 @@ public class GridView extends JPanel {
 	public void scroll(int deltaX, int deltaY) {
 		offsetX -= deltaX;
 		offsetY -= deltaY;
+		machineController.setOffsetX(offsetX);
+		machineController.setOffsetY(offsetY);
 	}
 	
 	private void calcMouseCoordinate(int x, int y) {
@@ -113,9 +117,10 @@ public class GridView extends JPanel {
 		Tile tile = this.getTileAtPosition(x, y);
 		if (tile != null) {
 			if (tile.getMachine() == null && this.selectedOption != null) {
-				tile.setMachine(this.selectedOption.newInstance(this.grid, x, y, this.gridX, this.gridY, tileSize));
+				MachineInterface machine = this.selectedOption.newInstance(this.grid, this.gridX, this.gridY);
+				tile.setMachine(machine);
+				machineController.addMachine(machine);
 				this.setTileAtPosition(x, y, tile);
-				tile.getMachine().addItem(new Iron());
 			}
 		}
 	}

@@ -13,14 +13,17 @@ public interface MachineInterface{
 	
 	public MachineInterface newInstance(InfiniteGrid grid, int gridX, int gridY);
 	
+	public int getGridX();
+	public int getGridY();
+	
 	public void addItem(ItemInterface item);
 	
 	public void removeItem(int index);
 
 	public Image getImage();
-	
 	public ImageIcon getIcon();
 	
-	public void render(Graphics g);
+	public void updateAnimation();
+	public void render(Graphics g, int offsetX, int offsetY, int tileSize);
 
 }
