@@ -38,7 +38,7 @@ public class MachineController {
     public void renderMachines(Graphics g) {
     	
         for (MachineInterface machine : machines) {
-        	machine.render(g, this.offsetX, this.offsetY, this.tileSize);
+        	machine.render(g, this.offsetX, this.offsetY);
         }
     }
 	

@@ -117,7 +117,7 @@ public class GridView extends JPanel {
 		Tile tile = this.getTileAtPosition(x, y);
 		if (tile != null) {
 			if (tile.getMachine() == null && this.selectedOption != null) {
-				MachineInterface machine = this.selectedOption.newInstance(this.grid, this.gridX, this.gridY);
+				MachineInterface machine = this.selectedOption.newInstance(this.grid, this.gridX, this.gridY, this.tileSize);
 				tile.setMachine(machine);
 				machineController.addMachine(machine);
 				this.setTileAtPosition(x, y, tile);

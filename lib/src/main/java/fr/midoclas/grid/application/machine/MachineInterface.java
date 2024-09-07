@@ -11,7 +11,7 @@ public interface MachineInterface{
 
 	public String getOptionName();
 	
-	public MachineInterface newInstance(InfiniteGrid grid, int gridX, int gridY);
+	public MachineInterface newInstance(InfiniteGrid grid, int gridX, int gridY, int tileSize);
 	
 	public int getGridX();
 	public int getGridY();
@@ -24,6 +24,6 @@ public interface MachineInterface{
 	public ImageIcon getIcon();
 	
 	public void updateAnimation();
-	public void render(Graphics g, int offsetX, int offsetY, int tileSize);
+	public void render(Graphics g, int offsetX, int offsetY);
 
 }
